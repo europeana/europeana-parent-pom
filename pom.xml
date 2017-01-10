@@ -58,7 +58,7 @@
         </plugins>
     </build>
     <scm>
-        <developerConnection>scm:git:https://github.com/europeana/ObjectStorage.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/europeana/europeana-parent-pom.git</developerConnection>
     </scm>
     <distributionManagement>
         <repository>
