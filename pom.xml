@@ -7,6 +7,7 @@
     <groupId>eu.europeana</groupId>
     <artifactId>europeana-parent-pom</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -49,7 +50,15 @@
                         <configuration>
                             <rules>
                                 <requireReleaseDeps>
-                                    <message>No Snapshots Allowed!</message>
+                                    <failWhenParentIsSnapshot>false</failWhenParentIsSnapshot>
+                                    <message>No SNAPSHOT dependencies allowed!</message>
+                                    <excludes>
+                                        <!--
+                                            We want to exclude child module dependencies from this check, as we're
+                                            always using SNAPSHOT versions (except when performing a release)
+                                        -->
+                                        <exclude>${project.groupId}:*</exclude>
+                                    </excludes>
                                 </requireReleaseDeps>
                             </rules>
                             <fail>true</fail>
