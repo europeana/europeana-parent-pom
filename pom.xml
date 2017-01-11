@@ -2,15 +2,52 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    <!--
+        The Europeana parent pom is intended to maintain the libraries/plugins and other best practices
+        over multiple projects and in collabration with multiple developers/teams
+    -->
     <groupId>eu.europeana</groupId>
     <artifactId>europeana-parent-pom</artifactId>
     <version>1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <junit.version>4.12</junit.version>
+        <version.junit>4.12</version.junit>
+        <version.log4j>1.2.15</version.log4j>
+        <!--TODO cleanup unused properties-->
+        <version.servletJstl>1.2</version.servletJstl>
+        <version.apacheLucene>4.10.1</version.apacheLucene>
+        <version.apacheSolr>4.10.1</version.apacheSolr>
+        <version.apacheVelocity>1.7</version.apacheVelocity>
+        <version.springBoot>1.2.8.RELEASE</version.springBoot>
+        <version.springCore>4.2.5.RELEASE</version.springCore>
+        <version.springWebService>2.2.4.RELEASE</version.springWebService>
+        <version.springSecurity>3.2.9.RELEASE</version.springSecurity>
+        <version.springSecurityOauth>2.0.8.RELEASE</version.springSecurityOauth>
+        <version.commonsLang>2.6</version.commonsLang>
+        <version.commonsLang3>3.4</version.commonsLang3>
+        <version.commonsIO>2.4</version.commonsIO>
+        <version.hibernateCore>5.1.0.Final</version.hibernateCore>
+        <version.jibx>1.2.6</version.jibx>
+        <version.mortbayJetty>6.1.26</version.mortbayJetty>
+        <version.mongoDriver>2.13.0</version.mongoDriver>
+        <version.mongoMorphia>0.99.1-patched</version.mongoMorphia>
+        <version.woodstox>3.2.9</version.woodstox>
+        <version.codehausJackson>1.9.9</version.codehausJackson>
+        <version.jackson>2.6.5</version.jackson>
+        <version.slf4j>1.7.5</version.slf4j>
+        <version.mockito>1.10.19</version.mockito>
+        <version.gson>2.2.4</version.gson>
+        <version.httpclient>4.3.3</version.httpclient>
+        <version.ehcache>2.8.3</version.ehcache>
+        <version.guava>18.0</version.guava>
+        <version.jodatime>2.9.2</version.jodatime>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
     <build>
         <plugins>
@@ -41,27 +78,105 @@
     <scm>
         <developerConnection>scm:git:https://github.com/europeana/europeana-parent-pom.git</developerConnection>
     </scm>
-    <distributionManagement>
-        <repository>
-            <id>artifactory.eanadev.org</id>
-            <name>artifactory.eanadev.org-releases</name>
-            <url>http://artifactory.eanadev.org/artifactory/libs-release-local</url>
-        </repository>
-        <snapshotRepository>
-            <id>artifactory.eanadev.org</id>
-            <name>artifactory.eanadev.org-snapshots</name>
-            <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
+                <version>${version.junit}</version>
             </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${version.log4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>${version.slf4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${version.springCore}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${version.springCore}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${version.springCore}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${version.springCore}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${version.springCore}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${version.springCore}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-oxm</artifactId>
+                <version>${version.springCore}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.ws</groupId>
+                <artifactId>spring-xml</artifactId>
+                <version>${version.springWebService}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${version.springCore}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>${version.springSecurityOauth}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-taglibs</artifactId>
+                <version>${version.springSecurity}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${version.springSecurity}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>${version.springSecurity}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
+
     <profiles>
         <profile>
             <id>default</id>
@@ -88,13 +203,6 @@
                                         <requireReleaseDeps>
                                             <failWhenParentIsSnapshot>false</failWhenParentIsSnapshot>
                                             <message>No SNAPSHOT dependencies allowed!</message>
-                                            <excludes>
-                                                <!--
-                                                    We want to exclude child module dependencies from this check, as we're
-                                                    always using SNAPSHOT versions (except when performing a release)
-                                                -->
-                                                <exclude>${project.groupId}:*</exclude>
-                                            </excludes>
                                         </requireReleaseDeps>
                                     </rules>
                                     <fail>true</fail>
@@ -106,4 +214,124 @@
             </build>
         </profile>
     </profiles>
+
+    <distributionManagement>
+        <repository>
+            <id>artifactory.eanadev.org</id>
+            <name>artifactory.eanadev.org-releases</name>
+            <url>http://artifactory.eanadev.org/artifactory/libs-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>artifactory.eanadev.org</id>
+            <name>artifactory.eanadev.org-snapshots</name>
+            <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>europeana-ext-release-local</id>
+            <url>http://artifactory.eanadev.org/artifactory/ext-release-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>releases</id>
+            <url>http://artifactory.eanadev.org/artifactory/libs-release-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>ext-releases</id>
+            <url>http://artifactory.eanadev.org/artifactory/ext-release-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>snapshots</id>
+            <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>ext-snapshots</id>
+            <url>http://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+
+        <!-- libs-release and libs-snapshot temporarily added as quick fix for dependencies problems -->
+        <repository>
+            <id>libs-release</id>
+            <name>libs-release</name>
+            <url>http://artifactory.eanadev.org/artifactory/libs-release</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>libs-snapshot</id>
+            <name>libs-snapshot</name>
+            <url>http://artifactory.eanadev.org/artifactory/libs-snapshot</url>
+            <snapshots/>
+        </repository>
+
+
+        <repository>
+            <id>repo1</id>
+            <url>http://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>http://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>com.springsource.repository.bundles.release</id>
+            <name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>
+            <url>http://repository.springsource.com/maven/bundles/release</url>
+        </repository>
+
+        <repository>
+            <id>com.springsource.repository.bundles.external</id>
+            <name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
+            <url>http://repository.springsource.com/maven/bundles/external</url>
+        </repository>
+
+
+        <repository>
+            <id>org.springframework.maven.milestone</id>
+            <name>Spring Maven Milestone Repository</name>
+            <url>http://maven.springframework.org/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>ext-snapshots</id>
+            <url>http://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+
+
 </project>
