@@ -179,6 +179,12 @@
                 <version>${version.springSecurity}</version>
             </dependency>
 
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${version.commonsIO}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
