@@ -265,6 +265,12 @@
                 <version>${version.commonsIO}</version>
             </dependency>
 
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${version.commonsLang}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
