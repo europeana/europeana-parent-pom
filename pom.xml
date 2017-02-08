@@ -45,7 +45,7 @@
         <version.ehcache>2.8.3</version.ehcache>
         <version.guava>18.0</version.guava>
         <version.jodatime>2.9.2</version.jodatime>
-        <version.objectStorage>1.3</version.objectStorage>
+        <version.objectStorage>1.2</version.objectStorage>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <javadoc.opts>-Xdoclint:none</javadoc.opts>
