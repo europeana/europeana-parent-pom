@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  
+    <profiles>
+        <profile>
+            <id>europeana</id>
+
+            <properties>
+    	        <sonar.host.url>http://jenkins.eanadev.org:9000</sonar.host.url>     
+	        </properties>
+        
+            <repositories>           
+                <repository>
+                    <id>europeana-libs-release</id>
+                    <name>libs-release</name>
+                    <url>http://artifactory.eanadev.org/artifactory/libs-release</url>    
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>europeana-libs-snapshot</id>
+                    <name>libs-snapshot</name>
+                    <url>http://artifactory.eanadev.org/artifactory/libs-snapshot</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                    </snapshots>
+                </repository>
+            </repositories>
+        
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>europeana-plugins-release</id>
+                    <name>plugins-release</name>
+                    <url>http://artifactory.eanadev.org/artifactory/plugins-release</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>europeana-plugins-snapshot</id>
+                    <name>plugins-snapshot</name>
+                    <url>http://artifactory.eanadev.org/artifactory/plugins-snapshot</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+    
+    <activeProfiles>
+        <activeProfile>europeana</activeProfile>
+    </activeProfiles>    	
+    
+</settings>
