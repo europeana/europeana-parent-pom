@@ -15,11 +15,13 @@
     </scm>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <javadoc.opts>-Xdoclint:none</javadoc.opts>
+
         <version.junit>4.12</version.junit>
         <version.log4j>1.2.15</version.log4j>
         <!--TODO cleanup unused properties-->
@@ -51,49 +53,180 @@
         <version.guava>18.0</version.guava>
         <version.jodatime>2.9.2</version.jodatime>
         <version.objectStorage>1.2</version.objectStorage>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <javadoc.opts>-Xdoclint:none</javadoc.opts>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>releases</id>
+            <url>http://artifactory.eanadev.org/artifactory/libs-release-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>ext-releases</id>
+            <url>http://artifactory.eanadev.org/artifactory/ext-release-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>snapshots</id>
+            <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>ext-snapshots</id>
+            <url>http://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+
+        <!-- libs-release and libs-snapshot temporarily added as quick fix for dependencies problems -->
+        <repository>
+            <id>libs-release</id>
+            <name>libs-release</name>
+            <url>http://artifactory.eanadev.org/artifactory/libs-release</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>libs-snapshot</id>
+            <name>libs-snapshot</name>
+            <url>http://artifactory.eanadev.org/artifactory/libs-snapshot</url>
+            <snapshots />
+        </repository>
+
+        <repository>
+            <id>central</id>
+            <url>http://repo1.maven.org/maven2/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>http://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>com.springsource.repository.bundles.release</id>
+            <name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>
+            <url>http://repository.springsource.com/maven/bundles/release</url>
+        </repository>
+
+        <repository>
+            <id>com.springsource.repository.bundles.external</id>
+            <name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
+            <url>http://repository.springsource.com/maven/bundles/external</url>
+        </repository>
+
+
+        <repository>
+            <id>org.springframework.maven.milestone</id>
+            <name>Spring Maven Milestone Repository</name>
+            <url>http://maven.springframework.org/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>ext-snapshots</id>
+            <url>http://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+
     <build>
+
         <plugins>
+            <!-- use this plugin for releasing the europeana parent pom itself -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.0</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
 
         <pluginManagement>
             <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.6.0</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>1.4</version>
+                    <configuration>
+                        <shortRevisionLength>10</shortRevisionLength>
+                        <timestampFormat>{0,date,yyyy-MM-dd HH:mm:ss}</timestampFormat>
+                        <revisionOnScmFailure>-na-</revisionOnScmFailure>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.6</version>
+                    <configuration>
+                        <webResources>
+                            <!-- Try to include a build.txt file in the generated war that contains version and build
+                                 information (from the buildnumber-maven-plugin) -->
+                            <resource>
+                                <directory>src/main/resources</directory>
+                                <filtering>true</filtering>
+                                <includes>
+                                    <include>**/build.txt</include>
+                                </includes>
+                            </resource>
+                        </webResources>
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.0.2</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <!-- This adds version information to the MANIFEST.MF in the generated jars -->
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.5.3</version>
                 </plugin>
+
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>cobertura-maven-plugin</artifactId>
@@ -104,32 +237,31 @@
                         </formats>
                     </configuration>
                 </plugin>
+
                 <plugin>
                     <groupId>org.eluder.coveralls</groupId>
                     <artifactId>coveralls-maven-plugin</artifactId>
                     <version>4.3.0</version>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.0.1</version>
+                </plugin>
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>2.10.4</version>
-                    <executions>
-                        <execution>
-                            <id>attach-javadocs</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                            <configuration>
-                                <additionalparam>${javadoc.opts}</additionalparam>
-                            </configuration>
-                        </execution>
-                    </executions>
                 </plugin>
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.3</version>
                 </plugin>
+
             </plugins>
         </pluginManagement>
     </build>
@@ -141,11 +273,15 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.7</version>
                 <configuration>
+                    <check>
+                        <!-- we have no strict checks at the moment -->
+                    </check>
                     <formats>
                         <format>xml</format>
                     </formats>
@@ -160,6 +296,140 @@
             </plugin>
         </plugins>
     </reporting>
+
+
+    <profiles>
+
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>buildnumber-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>create</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <!-- profile to generate javadoc -->
+            <id>javadoc</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <additionalparam>${javadoc.opts}</additionalparam>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <version>1.4.1</version>
+                        <executions>
+                            <execution>
+                                <id>enforce-no-snapshots</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireReleaseDeps>
+                                            <!-- for now we allow snapshots, but this should be removed soon! -->
+                                            <failWhenParentIsSnapshot>false</failWhenParentIsSnapshot>
+                                            <message>No SNAPSHOT dependencies allowed!</message>
+                                        </requireReleaseDeps>
+                                    </rules>
+                                    <fail>true</fail>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>buildnumber-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>create</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- include sources when releasing -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- include javadoc when releasing -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <additionalparam>${javadoc.opts}</additionalparam>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- generate maven site when releasing -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-site-plugin</artifactId>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>
@@ -278,65 +548,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <profiles>
-        <profile>
-            <id>default</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-site-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <version>1.4.1</version>
-                        <executions>
-                            <execution>
-                                <id>enforce-no-snapshots</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireReleaseDeps>
-                                            <failWhenParentIsSnapshot>false</failWhenParentIsSnapshot>
-                                            <message>No SNAPSHOT dependencies allowed!</message>
-                                        </requireReleaseDeps>
-                                    </rules>
-                                    <fail>true</fail>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-site-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
-
     <distributionManagement>
         <repository>
             <id>artifactory.eanadev.org</id>
@@ -349,103 +560,5 @@
             <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>releases</id>
-            <url>http://artifactory.eanadev.org/artifactory/libs-release-local</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>ext-releases</id>
-            <url>http://artifactory.eanadev.org/artifactory/ext-release-local</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>snapshots</id>
-            <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>ext-snapshots</id>
-            <url>http://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-
-        <!-- libs-release and libs-snapshot temporarily added as quick fix for dependencies problems -->
-        <repository>
-            <id>libs-release</id>
-            <name>libs-release</name>
-            <url>http://artifactory.eanadev.org/artifactory/libs-release</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>libs-snapshot</id>
-            <name>libs-snapshot</name>
-            <url>http://artifactory.eanadev.org/artifactory/libs-snapshot</url>
-            <snapshots />
-        </repository>
-
-        <repository>
-            <id>repo1</id>
-            <url>http://repo1.maven.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>http://repo.spring.io/snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>com.springsource.repository.bundles.release</id>
-            <name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>
-            <url>http://repository.springsource.com/maven/bundles/release</url>
-        </repository>
-
-        <repository>
-            <id>com.springsource.repository.bundles.external</id>
-            <name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
-            <url>http://repository.springsource.com/maven/bundles/external</url>
-        </repository>
-
-
-        <repository>
-            <id>org.springframework.maven.milestone</id>
-            <name>Spring Maven Milestone Repository</name>
-            <url>http://maven.springframework.org/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>ext-snapshots</id>
-            <url>http://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
-
 
 </project>
