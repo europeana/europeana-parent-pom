@@ -7,7 +7,7 @@
     -->
     <groupId>eu.europeana</groupId>
     <artifactId>europeana-parent-pom</artifactId>
-    <version>1.6-SNAPSHOT</version>
+    <version>1.7-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <scm>
