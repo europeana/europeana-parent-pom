@@ -23,7 +23,8 @@
         <javadoc.opts>-Xdoclint:none</javadoc.opts>
 
         <version.junit>4.12</version.junit>
-        <version.log4j>1.2.15</version.log4j>
+        <version.slf4j>1.7.9</version.slf4j>
+        <version.log4j>1.2.17</version.log4j>
         <!--TODO cleanup unused properties-->
         <version.servletJstl>1.2</version.servletJstl>
         <version.apacheLucene>4.10.1</version.apacheLucene>
@@ -45,14 +46,13 @@
         <version.woodstox>3.2.9</version.woodstox>
         <version.codehausJackson>1.9.9</version.codehausJackson>
         <version.jackson>2.6.5</version.jackson>
-        <version.slf4j>1.7.5</version.slf4j>
         <version.mockito>1.10.19</version.mockito>
         <version.gson>2.2.4</version.gson>
-        <version.httpclient>4.3.3</version.httpclient>
+        <version.httpclient>4.5.2</version.httpclient>
         <version.ehcache>2.8.3</version.ehcache>
         <version.guava>18.0</version.guava>
         <version.jodatime>2.9.2</version.jodatime>
-        <version.objectStorage>1.2</version.objectStorage>
+        <version.objectStorage>1.4</version.objectStorage>
     </properties>
 
     <repositories>
