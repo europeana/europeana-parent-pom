@@ -7,7 +7,7 @@
     -->
     <groupId>eu.europeana</groupId>
     <artifactId>europeana-parent-pom</artifactId>
-    <version>1.7-SNAPSHOT</version>
+    <version>1.8-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <scm>
@@ -52,7 +52,6 @@
         <version.ehcache>2.8.3</version.ehcache>
         <version.guava>18.0</version.guava>
         <version.jodatime>2.9.2</version.jodatime>
-        <version.objectStorage>1.5</version.objectStorage>
     </properties>
 
     <repositories>
