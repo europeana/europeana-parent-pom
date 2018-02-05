@@ -433,12 +433,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>eu.europeana</groupId>
-                <artifactId>object-storage</artifactId>
-                <version>${version.objectStorage}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${version.junit}</version>
