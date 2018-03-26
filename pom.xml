@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!--
-        The Europeana parent pom is intended to maintain the libraries/plugins and other best practices
-        over multiple projects and in collabration with multiple developers/teams
+        The Europeana parent pom is intended to maintain common build and release steps for Europeana Java projects
     -->
     <groupId>eu.europeana</groupId>
     <artifactId>europeana-parent-pom</artifactId>
-    <version>1.8-SNAPSHOT</version>
+    <version>2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <scm>
@@ -15,43 +16,13 @@
     </scm>
 
     <properties>
+        <!-- minimum version -->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <javadoc.opts>-Xdoclint:none</javadoc.opts>
-
-        <version.junit>4.12</version.junit>
-        <version.slf4j>1.7.9</version.slf4j>
-        <version.log4j>1.2.17</version.log4j>
-        <!--TODO cleanup unused properties-->
-        <version.servletJstl>1.2</version.servletJstl>
-        <version.apacheLucene>4.10.1</version.apacheLucene>
-        <version.apacheSolr>4.10.1</version.apacheSolr>
-        <version.apacheVelocity>1.7</version.apacheVelocity>
-        <version.springBoot>1.2.8.RELEASE</version.springBoot>
-        <version.springCore>4.2.5.RELEASE</version.springCore>
-        <version.springWebService>2.2.4.RELEASE</version.springWebService>
-        <version.springSecurity>3.2.9.RELEASE</version.springSecurity>
-        <version.springSecurityOauth>2.0.8.RELEASE</version.springSecurityOauth>
-        <version.commonsLang>2.6</version.commonsLang>
-        <version.commonsLang3>3.4</version.commonsLang3>
-        <version.commonsIO>2.4</version.commonsIO>
-        <version.hibernateCore>5.1.0.Final</version.hibernateCore>
-        <version.jibx>1.2.6</version.jibx>
-        <version.mortbayJetty>6.1.26</version.mortbayJetty>
-        <version.mongoDriver>3.4.1</version.mongoDriver>
-        <version.mongoMorphia>1.3.2</version.mongoMorphia>
-        <version.woodstox>3.2.9</version.woodstox>
-        <version.codehausJackson>1.9.9</version.codehausJackson>
-        <version.jackson>2.6.5</version.jackson>
-        <version.mockito>1.10.19</version.mockito>
-        <version.gson>2.2.4</version.gson>
-        <version.httpclient>4.5.2</version.httpclient>
-        <version.ehcache>2.8.3</version.ehcache>
-        <version.guava>18.0</version.guava>
-        <version.jodatime>2.9.2</version.jodatime>
     </properties>
 
     <repositories>
@@ -97,7 +68,6 @@
             <id>libs-snapshot</id>
             <name>libs-snapshot</name>
             <url>http://artifactory.eanadev.org/artifactory/libs-snapshot</url>
-            <snapshots />
         </repository>
 
         <repository>
@@ -116,19 +86,6 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-
-        <repository>
-            <id>com.springsource.repository.bundles.release</id>
-            <name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>
-            <url>http://repository.springsource.com/maven/bundles/release</url>
-        </repository>
-
-        <repository>
-            <id>com.springsource.repository.bundles.external</id>
-            <name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
-            <url>http://repository.springsource.com/maven/bundles/external</url>
-        </repository>
-
 
         <repository>
             <id>org.springframework.maven.milestone</id>
@@ -168,7 +125,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.6.0</version>
+                    <version>3.7.0</version>
                     <configuration>
                         <source>${maven.compiler.source}</source>
                         <target>${maven.compiler.target}</target>
@@ -192,14 +149,15 @@
                     <version>2.6</version>
                     <configuration>
                         <webResources>
-                            <!-- Try to include a build.txt file in the generated war that contains version and build
-                                 information (from the buildnumber-maven-plugin) -->
+                            <!-- Fill in information in the src/main/resources/build.properties file (if the project has it) -->
                             <resource>
                                 <directory>src/main/resources</directory>
                                 <filtering>true</filtering>
                                 <includes>
-                                    <include>**/build.txt</include>
+                                    <include>**/build.properties</include>
                                 </includes>
+                                <!-- overwrite the original file in the war-->
+                                <targetPath>WEB-INF/classes</targetPath>
                             </resource>
                         </webResources>
                         <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -226,7 +184,7 @@
                     <version>2.5.3</version>
                 </plugin>
 
-                <plugin>
+                <!--<plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>cobertura-maven-plugin</artifactId>
                     <version>2.7</version>
@@ -235,13 +193,13 @@
                             <format>xml</format>
                         </formats>
                     </configuration>
-                </plugin>
+                </plugin> -->
 
-                <plugin>
+                <!-- <plugin>
                     <groupId>org.eluder.coveralls</groupId>
                     <artifactId>coveralls-maven-plugin</artifactId>
                     <version>4.3.0</version>
-                </plugin>
+                </plugin> -->
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -273,13 +231,12 @@
                 <version>2.19.1</version>
             </plugin>
 
-            <plugin>
+            <!--<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.7</version>
                 <configuration>
                     <check>
-                        <!-- we have no strict checks at the moment -->
                     </check>
                     <formats>
                         <format>xml</format>
@@ -292,7 +249,7 @@
                         </reports>
                     </reportSet>
                 </reportSets>
-            </plugin>
+            </plugin> -->
         </plugins>
     </reporting>
 
@@ -429,117 +386,6 @@
             </build>
         </profile>
     </profiles>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${version.junit}</version>
-            </dependency>
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>${version.log4j}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-jdk14</artifactId>
-                <version>${version.slf4j}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-webmvc</artifactId>
-                <version>${version.springCore}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-aop</artifactId>
-                <version>${version.springCore}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>${version.springCore}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-beans</artifactId>
-                <version>${version.springCore}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${version.springCore}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context-support</artifactId>
-                <version>${version.springCore}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-oxm</artifactId>
-                <version>${version.springCore}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.ws</groupId>
-                <artifactId>spring-xml</artifactId>
-                <version>${version.springWebService}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>${version.springCore}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.security.oauth</groupId>
-                <artifactId>spring-security-oauth2</artifactId>
-                <version>${version.springSecurityOauth}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-taglibs</artifactId>
-                <version>${version.springSecurity}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-web</artifactId>
-                <version>${version.springSecurity}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-config</artifactId>
-                <version>${version.springSecurity}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${version.commonsIO}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-lang</groupId>
-                <artifactId>commons-lang</artifactId>
-                <version>${version.commonsLang}</version>
-            </dependency>
-
-        </dependencies>
-    </dependencyManagement>
 
     <distributionManagement>
         <repository>

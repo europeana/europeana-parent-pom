@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
   
     <profiles>
         <profile>
             <id>europeana</id>
 
             <properties>
-    	        <sonar.host.url>http://jenkins.eanadev.org:9000</sonar.host.url>     
+    	        <sonar.host.url>http://sonarqube.eanadev.org:9000</sonar.host.url>
 	        </properties>
         
             <repositories>           
@@ -25,7 +26,7 @@
                     <url>http://artifactory.eanadev.org/artifactory/libs-snapshot</url>
                     <snapshots>
                         <enabled>true</enabled>
-                        <updatePolicy>always</updatePolicy>
+                        <updatePolicy>daily</updatePolicy>
                     </snapshots>
                 </repository>
             </repositories>
@@ -45,7 +46,7 @@
                     <url>http://artifactory.eanadev.org/artifactory/plugins-snapshot</url>
                     <snapshots>
                         <enabled>true</enabled>
-                        <updatePolicy>always</updatePolicy>
+                        <updatePolicy>daily</updatePolicy>
                     </snapshots>
                 </pluginRepository>
             </pluginRepositories>
