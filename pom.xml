@@ -149,7 +149,7 @@
                         <webResources>
                             <!-- Fill in information in the src/main/resources/build.properties file (if the project has it) -->
                             <!-- Note that when building in Jenkins you may get a warning 'Cannot get the branch information
-                                 from the git repository'fix that you'll need to go to Source Code Management ->
+                                 from the git repository'. To fix that you'll need to go to Source Code Management ->
                                  Add Additional Behaviour -> Check out to specific local branch and fill in '**' for the
                                  branch name -->
                             <resource>

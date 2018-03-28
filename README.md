@@ -43,3 +43,10 @@ The **release** profile will
 ## Note ##
 The 1.x releases of the Parent POM also contains commonly-used dependencies, but since we are moving towards microservices
  and different technologies, all dependencies have been phased out in 2.x releases
+ 
+## Known issues ##
+When building in Jenkins you may get a warning '***Cannot get the branch information from the git repository: Detecting the 
+current branch failed: fatal: ref HEAD is not a symbolic ref***'.
+
+To fix that you'll need to go to `Source Code Management -> Add Additional Behaviour -> Check out to specific local branch`
+and fill in `**` for the branch name
