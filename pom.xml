@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!--
         The Europeana parent pom is intended to maintain common build and release steps for Europeana Java projects
@@ -12,6 +13,19 @@
     <scm>
         <developerConnection>scm:git:https://github.com/europeana/europeana-parent-pom.git</developerConnection>
     </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>artifactory.eanadev.org</id>
+            <name>artifactory.eanadev.org-releases</name>
+            <url>https://artifactory.eanadev.org/artifactory/libs-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>artifactory.eanadev.org</id>
+            <name>artifactory.eanadev.org-snapshots</name>
+            <url>https://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <properties>
         <!-- minimum version -->
@@ -84,15 +98,6 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-
-<!--        <repository>-->
-<!--            <id>org.springframework.maven.milestone</id>-->
-<!--            <name>Spring Maven Milestone Repository</name>-->
-<!--            <url>https://maven.springframework.org/milestone</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
 
     </repositories>
 
@@ -356,17 +361,6 @@
         </profile>
     </profiles>
 
-    <distributionManagement>
-        <repository>
-            <id>artifactory.eanadev.org</id>
-            <name>artifactory.eanadev.org-releases</name>
-            <url>https://artifactory.eanadev.org/artifactory/libs-release-local</url>
-        </repository>
-        <snapshotRepository>
-            <id>artifactory.eanadev.org</id>
-            <name>artifactory.eanadev.org-snapshots</name>
-            <url>https://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
+
 
 </project>
