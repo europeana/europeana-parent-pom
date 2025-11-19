@@ -6,12 +6,58 @@
     <profiles>
         <profile>
             <id>europeana</id>
-
             <properties>
-    	        <sonar.host.url>http://sonarqube.eanadev.org:9000</sonar.host.url>
-	        </properties>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+            </properties>
         
             <repositories>           
+                <repository>
+                    <id>europeana-libs-release</id>
+                    <name>libs-release</name>
+                    <url>https://artifactory-prod.eanadev.org/artifactory/libs-release</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>europeana-libs-snapshot</id>
+                    <name>libs-snapshot</name>
+                    <url>https://artifactory-prod.eanadev.org/artifactory/libs-snapshot</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                    </snapshots>
+                </repository>
+            </repositories>
+        
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>europeana-plugins-release</id>
+                    <name>plugins-release</name>
+                    <url>https://artifactory-prod.eanadev.org/artifactory/plugins-release</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>europeana-plugins-snapshot</id>
+                    <name>plugins-snapshot</name>
+                    <url>https://artifactory-prod.eanadev.org/artifactory/plugins-snapshot</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
+        <profile>
+            <id>europeana-old</id>
+            <properties>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+            </properties>
+
+            <repositories>
                 <repository>
                     <id>europeana-libs-release</id>
                     <name>libs-release</name>
@@ -30,7 +76,7 @@
                     </snapshots>
                 </repository>
             </repositories>
-        
+
             <pluginRepositories>
                 <pluginRepository>
                     <id>europeana-plugins-release</id>
@@ -51,6 +97,18 @@
                 </pluginRepository>
             </pluginRepositories>
         </profile>
+
+        <profile>
+            <id>maven-central</id>
+            <repositories>
+                <repository>
+                    <id>maven-central</id>
+                    <name>Maven Repository</name>
+                    <url>https://repo.maven.apache.org/maven2/</url>
+                </repository>
+            </repositories>
+        </profile>
+
     </profiles>
     
     <activeProfiles>

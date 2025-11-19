@@ -6,7 +6,7 @@
     -->
     <groupId>eu.europeana</groupId>
     <artifactId>europeana-parent-pom</artifactId>
-    <version>2.6-SNAPSHOT</version>
+    <version>3.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <scm>
@@ -15,14 +15,14 @@
 
     <distributionManagement>
         <repository>
-            <id>artifactory.eanadev.org</id>
-            <name>artifactory.eanadev.org-releases</name>
-            <url>https://artifactory.eanadev.org/artifactory/libs-release-local</url>
+            <id>artifactory</id>
+            <name>artifactory-releases</name>
+            <url>https://artifactory-prod.eanadev.org/artifactory/libs-release-local</url>
         </repository>
         <snapshotRepository>
-            <id>artifactory.eanadev.org</id>
-            <name>artifactory.eanadev.org-snapshots</name>
-            <url>https://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
+            <id>artifactory</id>
+            <name>artifactory-snapshots</name>
+            <url>https://artifactory-prod.eanadev.org/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -41,28 +41,28 @@
     <repositories>
         <repository>
             <id>releases</id>
-            <url>https://artifactory.eanadev.org/artifactory/libs-release-local</url>
+            <url>https://artifactory-prod.eanadev.org/artifactory/libs-release-local</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
         </repository>
         <repository>
             <id>ext-releases</id>
-            <url>https://artifactory.eanadev.org/artifactory/ext-release-local</url>
+            <url>https://artifactory-prod.eanadev.org/artifactory/ext-release-local</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
         </repository>
         <repository>
             <id>snapshots</id>
-            <url>https://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
+            <url>https://artifactory-prod.eanadev.org/artifactory/libs-snapshot-local</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
         </repository>
         <repository>
             <id>ext-snapshots</id>
-            <url>https://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
+            <url>https://artifactory-prod.eanadev.org/artifactory/ext-snapshot-local</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -72,7 +72,7 @@
         <repository>
             <id>libs-release</id>
             <name>libs-release</name>
-            <url>https://artifactory.eanadev.org/artifactory/libs-release</url>
+            <url>https://artifactory-prod.eanadev.org/artifactory/libs-release</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -80,32 +80,18 @@
         <repository>
             <id>libs-snapshot</id>
             <name>libs-snapshot</name>
-            <url>https://artifactory.eanadev.org/artifactory/libs-snapshot</url>
+            <url>https://artifactory-prod.eanadev.org/artifactory/libs-snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
         </repository>
-
-<!--        <repository>-->
-<!--            <id>central</id>-->
-<!--            <url>https://repo1.maven.org/maven2/</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-
-<!--        <repository>-->
-<!--            <id>spring-snapshots</id>-->
-<!--            <name>Spring Snapshots</name>-->
-<!--            <url>https://repo.spring.io/snapshot</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>true</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
 
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
             <id>ext-snapshots</id>
-            <url>https://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
+            <url>https://artifactory-prod.eanadev.org/artifactory/ext-snapshot-local</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -116,30 +102,32 @@
 
         <plugins>
             <!-- use this plugin for releasing the europeana parent pom itself -->
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.2.0</version>
             </plugin>
         </plugins>
 
         <pluginManagement>
             <plugins>
-
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.13.0</version>
+                    <version>3.14.1</version>
                     <configuration>
                         <source>${maven.compiler.source}</source>
                         <target>${maven.compiler.target}</target>
                     </configuration>
                 </plugin>
 
+                <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/buildnumber-maven-plugin -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>buildnumber-maven-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.1</version>
                     <configuration>
                         <shortRevisionLength>10</shortRevisionLength>
                         <timestampFormat>yyyy-MM-dd HH:mm:ss</timestampFormat>
@@ -147,10 +135,11 @@
                     </configuration>
                 </plugin>
 
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-war-plugin/3.5.0 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>3.4.0</version>
+                    <version>3.5.0</version>
                     <configuration>
                         <webResources>
                             <!-- Fill in information in the src/main/resources/build.properties file (if the project has it) -->
@@ -172,10 +161,11 @@
                     </configuration>
                 </plugin>
 
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin/3.5.0 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>3.5.0</version>
                     <configuration>
                         <archive>
                             <manifest>
@@ -186,41 +176,40 @@
                     </configuration>
                 </plugin>
 
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>3.2.0</version>
                 </plugin>
 
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-enforcer-plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.4.1</version>
+                    <version>3.6.2</version>
                 </plugin>
 
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>3.3.1</version>
                 </plugin>
 
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.6.3</version>
+                    <version>3.12.0</version>
                 </plugin>
 
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>3.5.4</version>
                 </plugin>
-
-<!--                <plugin>-->
-<!--                    <groupId>org.apache.maven.plugins</groupId>-->
-<!--                    <artifactId>maven-site-plugin</artifactId>-->
-<!--                    <version>3.12.1</version>-->
-<!--                </plugin>-->
 
             </plugins>
         </pluginManagement>
@@ -231,7 +220,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>3.5.4</version>
             </plugin>
         </plugins>
     </reporting>
@@ -351,12 +340,6 @@
                             </execution>
                         </executions>
                     </plugin>
-
-                    <!-- generate maven site when releasing -->
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.maven.plugins</groupId>-->
-<!--                        <artifactId>maven-site-plugin</artifactId>-->
-<!--                    </plugin>-->
 
                 </plugins>
             </build>
